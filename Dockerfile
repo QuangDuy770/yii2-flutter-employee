@@ -8,7 +8,8 @@ COPY . /var/www/html/
 
 WORKDIR /var/www/html
 
-RUN chmod -R 777 runtime web/assets
+RUN mkdir -p runtime web/assets \
+    && chmod -R 777 runtime web/assets
 
 RUN sed -i 's!/var/www/html!/var/www/html/web!g' /etc/apache2/sites-available/000-default.conf
 
