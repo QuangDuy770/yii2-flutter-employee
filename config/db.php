@@ -2,8 +2,8 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=sql208.infinityfree.com;dbname=ifo_41908871_dbemployee',
-    'username' => 'ifo_41908871',
-    'password' => 'qz1593571247',   
+    'dsn' => 'mysql:host=' . getenv('DB_HOST') . ';port=' . getenv('DB_PORT') . ';dbname=' . getenv('DB_NAME'),
+    'username' => getenv('DB_USER'),
+    'password' => getenv('DB_PASS'),
     'charset' => 'utf8mb4',
 ];
