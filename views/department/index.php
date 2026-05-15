@@ -39,11 +39,13 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'name',
                 'label' => 'Tên phòng ban',
+                'enableSorting' => false,
                 'contentOptions' => ['style' => 'min-width: 180px;'],
             ],
             [
                 'attribute' => 'description',
                 'label' => 'Mô tả',
+                'enableSorting' => false,
                 'format' => 'ntext',
                 'contentOptions' => ['style' => 'min-width: 250px;'],
             ],
@@ -52,6 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'status',
                 'label' => 'Trạng thái',
+                'enableSorting' => false,
                 'format' => 'raw',
                 'value' => function ($model) {
                     return $model->status == 1 
@@ -82,6 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'created_at',
                 'label' => 'Ngày tạo',
+                'enableSorting' => false,
                 'value' => function ($model) {
                     return $model->created_at ? date('d/m/Y', $model->created_at) : '(Chưa có)';
                 },
