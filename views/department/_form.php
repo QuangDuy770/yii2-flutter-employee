@@ -11,7 +11,9 @@ use yii\helpers\ArrayHelper;
 
 <div class="department-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'enableClientValidation' => true,
+    ]); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('Tên phòng ban') ?>
 
