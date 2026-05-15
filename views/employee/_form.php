@@ -11,7 +11,9 @@ use yii\helpers\ArrayHelper;
 
 <div class="employee-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'enableClientValidation' => true,
+    ]); ?>
 
     <?= $form->field($model, 'employee_code')->textInput(['maxlength' => true])->label('Mã nhân viên') ?>
 
