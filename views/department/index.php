@@ -31,11 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn', 'header' => '#', 'contentOptions' => ['style' => 'width: 50px; text-align: center;']],
 
-            [
+          /*  [
                 'attribute' => 'id',
                 'label' => 'ID',
                 'contentOptions' => ['style' => 'width: 80px; text-align: center;'],
-            ],
+            ],*/
             [
                 'attribute' => 'name',
                 'label' => 'Tên phòng ban',

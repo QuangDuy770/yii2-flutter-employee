@@ -33,23 +33,26 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn', 'header' => '#'],
 
-            [
+          /*  [
                 'attribute' => 'id',
                 'label' => 'ID',
-            ],
+            ],*/
             [
                 'attribute' => 'employee_code',
                 'label' => 'Mã nhân viên',
+                'enableSorting' => false,
             ],
             [
                 'attribute' => 'full_name',
                 'label' => 'Họ và tên',
+                'enableSorting' => false,
             ],
 
             // Phòng ban
             [
                 'attribute' => 'department_id',
                 'label' => 'Phòng ban',
+                'enableSorting' => false,
                 'value' => function ($model) {
                     return $model->department ? $model->department->name : '(Chưa phân phòng)';
                 },
@@ -59,21 +62,25 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'position',
                 'label' => 'Chức vụ',
+                'enableSorting' => false,
             ],
             [
                 'attribute' => 'email',
                 'label' => 'Email',
                 'format' => 'email',
+                'enableSorting' => false,
             ],
             [
                 'attribute' => 'phone',
                 'label' => 'Số điện thoại',
+                'enableSorting' => false,
             ],
 
             // Trạng thái
             [
                 'attribute' => 'status',
                 'label' => 'Trạng thái',
+                'enableSorting' => false,
                 'format' => 'raw',
                 'value' => function ($model) {
                     return $model->status == 1

@@ -87,4 +87,8 @@ class Department extends ActiveRecord
             ],
         ];
     }
+    public function getEmployeeCount()
+{
+    return $this->getEmployees()->count();
+}
 }
