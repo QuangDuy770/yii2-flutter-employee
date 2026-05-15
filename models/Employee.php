@@ -24,8 +24,6 @@ use Yii;
  */
 class Employee extends \yii\db\ActiveRecord
 {
-
-
     /**
      * {@inheritdoc}
      */
@@ -40,21 +38,86 @@ class Employee extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['employee_code', 'full_name', 'department_id', 'status'], 'required'],
+
+            // required
+            [['employee_code', 'full_name', 'department_id'], 'required'],
+
+            // integer
+            [['department_id', 'status', 'created_at', 'updated_at'], 'integer'],
+
+            // number
+            ['salary', 'number', 'min' => 0],
+
+            // string length
             [['employee_code'], 'string', 'max' => 20],
-            [['full_name', 'position'], 'string', 'max' => 100],
-
-            [['email'], 'string', 'max' => 100],
-            [['email'], 'email', 'skipOnEmpty' => true],   
-
+            [['full_name', 'position', 'email'], 'string', 'max' => 100],
             [['phone'], 'string', 'max' => 20],
 
-            [['salary'], 'number', 'min' => 0],
-            [['department_id'], 'integer'],
-            [['status'], 'in', 'range' => [0, 1]],
+            // trim
+            [['employee_code', 'full_name', 'position', 'email', 'phone'], 'trim'],
 
-            [['employee_code'], 'unique'],
-            [['email'], 'unique', 'skipOnEmpty' => true],
+            // unique employee code
+            [
+                'employee_code',
+                'unique',
+                'targetClass' => self::class,
+                'filter' => function ($query) {
+                    if (!$this->isNewRecord) {
+                        $query->andWhere(['!=', 'id', $this->id]);
+                    }
+                },
+                'message' => 'Mã nhân viên đã tồn tại.'
+            ],
+
+            // unique email
+            [
+                'email',
+                'unique',
+                'targetClass' => self::class,
+                'filter' => function ($query) {
+                    if (!$this->isNewRecord) {
+                        $query->andWhere(['!=', 'id', $this->id]);
+                    }
+                },
+                'skipOnEmpty' => true,
+                'message' => 'Email đã tồn tại.'
+            ],
+
+            // email validation
+            [
+                'email',
+                'email',
+                'skipOnEmpty' => true,
+                'message' => 'Email không hợp lệ.'
+            ],
+
+            // phone validation
+            [
+                'phone',
+                'match',
+                'pattern' => '/^[0-9]{9,11}$/',
+                'skipOnEmpty' => true,
+                'message' => 'Số điện thoại phải từ 9-11 số.'
+            ],
+
+            // hire date
+            [
+                'hire_date',
+                'date',
+                'format' => 'php:Y-m-d',
+                'skipOnEmpty' => true,
+                'message' => 'Ngày không hợp lệ.'
+            ],
+
+            // status
+            [
+                'status',
+                'in',
+                'range' => [0, 1],
+            ],
+
+            // safe
+            [['hire_date'], 'safe'],
         ];
     }
 
@@ -65,16 +128,17 @@ class Employee extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'employee_code' => 'Employee Code',
-            'full_name' => 'Full Name',
-            'department_id' => 'Department ID',
-            'position' => 'Position',
+            'employee_code' => 'Mã nhân viên',
+            'full_name' => 'Họ tên',
+            'department_id' => 'Phòng ban',
+            'position' => 'Chức vụ',
             'email' => 'Email',
-            'phone' => 'Phone',
-            'salary' => 'Salary',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'phone' => 'Số điện thoại',
+            'hire_date' => 'Ngày vào làm',
+            'salary' => 'Lương',
+            'status' => 'Trạng thái',
+            'created_at' => 'Ngày tạo',
+            'updated_at' => 'Ngày cập nhật',
         ];
     }
 
@@ -87,6 +151,7 @@ class Employee extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Department::class, ['id' => 'department_id']);
     }
+
     /**
      * Tự động cập nhật created_at và updated_at
      */
@@ -100,7 +165,7 @@ class Employee extends \yii\db\ActiveRecord
                     \yii\db\ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
                 ],
                 'value' => function () {
-                    return time();   
+                    return time();
                 },
             ],
         ];
