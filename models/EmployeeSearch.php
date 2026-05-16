@@ -2,7 +2,6 @@
 
 namespace app\models;
 
-use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
@@ -10,16 +9,29 @@ use yii\data\ActiveDataProvider;
  */
 class EmployeeSearch extends Employee
 {
+    public $created_at_from;
+    public $created_at_to;
+    public $updated_at_from;
+    public $updated_at_to;
+
+    public function init()
+    {
+        parent::init();
+
+        // Không để status mặc định = 1 trong trang danh sách
+        // Để dropdown mặc định là "Tất cả trạng thái"
+        $this->status = null;
+    }
+
     public function rules()
     {
         return [
             [['id', 'department_id', 'status'], 'integer'],
             [['employee_code', 'full_name', 'position', 'email', 'phone'], 'safe'],
             [['salary'], 'number'],
+            [['created_at_from', 'created_at_to', 'updated_at_from', 'updated_at_to'], 'safe'],
         ];
     }
-
-    
 
     public function search($params)
     {
@@ -30,7 +42,7 @@ class EmployeeSearch extends Employee
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => [
-                'defaultOrder' => ['id' => SORT_DESC],   
+                'defaultOrder' => ['id' => SORT_DESC],
                 'attributes' => [
                     'id' => [
                         'asc'  => ['e.id' => SORT_ASC],
@@ -70,13 +82,19 @@ class EmployeeSearch extends Employee
             return $dataProvider;
         }
 
-       
+        // Lọc phòng ban
         $query->andFilterWhere([
             'e.department_id' => $this->department_id,
-            'e.status'        => $this->status,
-            'e.salary'        => $this->salary,
+            'e.salary' => $this->salary,
         ]);
 
+        // Lọc trạng thái
+        // Chỉ lọc khi người dùng chọn Đang hoạt động hoặc Ngừng hoạt động
+        if ($this->status !== null && $this->status !== '') {
+            $query->andWhere(['e.status' => $this->status]);
+        }
+
+        // Lọc text
         $query->andFilterWhere(['like', 'e.employee_code', $this->employee_code])
             ->andFilterWhere(['like', 'e.full_name', $this->full_name])
             ->andFilterWhere(['like', 'e.position', $this->position])

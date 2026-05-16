@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn', 'header' => '#'],
 
-          /*  [
+            /*  [
                 'attribute' => 'id',
                 'label' => 'ID',
             ],*/
@@ -88,12 +88,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         : '<span class="badge text-bg-secondary">Ngừng hoạt động</span>';
                 },
                 'filter' => [
+                    '' => 'Tất cả trạng thái',
                     1 => 'Đang hoạt động',
                     0 => 'Ngừng hoạt động',
                 ],
                 'filterInputOptions' => [
                     'class' => 'form-control',
-                    'prompt' => 'Tất cả trạng thái'
                 ],
             ],
 
