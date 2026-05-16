@@ -18,9 +18,18 @@ class EmployeeSearch extends Employee
     {
         parent::init();
 
-        // Không để status mặc định = 1 trong trang danh sách
-        // Để dropdown mặc định là "Tất cả trạng thái"
+        // Không để status mặc định là 1 ở trang danh sách
         $this->status = null;
+    }
+
+    /**
+     * Không gọi beforeValidate() của Employee
+     * vì Employee::beforeValidate() tự set status = 1.
+     * Nếu gọi parent::beforeValidate(), filter "Tất cả trạng thái" sẽ bị đổi thành "Đang hoạt động".
+     */
+    public function beforeValidate()
+    {
+        return true;
     }
 
     public function rules()
@@ -82,14 +91,15 @@ class EmployeeSearch extends Employee
             return $dataProvider;
         }
 
-        // Lọc phòng ban
+        // Lọc phòng ban và lương
         $query->andFilterWhere([
             'e.department_id' => $this->department_id,
             'e.salary' => $this->salary,
         ]);
 
         // Lọc trạng thái
-        // Chỉ lọc khi người dùng chọn Đang hoạt động hoặc Ngừng hoạt động
+        // Chỉ lọc khi chọn Đang hoạt động hoặc Ngừng hoạt động
+        // Nếu chọn Tất cả trạng thái thì không lọc status
         if ($this->status !== null && $this->status !== '') {
             $query->andWhere(['e.status' => $this->status]);
         }
