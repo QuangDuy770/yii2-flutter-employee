@@ -263,7 +263,7 @@ php yii serve
 Flutter repository:
 
 ```txt
-https://github.com/QuangDuy770/employee-app
+https://github.com/QuangDuy770/employee-flutter-app.git
 ```
 
 ---
