@@ -165,9 +165,7 @@ DELETE /api/employee/{id}
 
 ```http
 GET /api/department
-POST /api/department
-PUT /api/department/{id}
-DELETE /api/department/{id}
+
 ```
 
 ---
