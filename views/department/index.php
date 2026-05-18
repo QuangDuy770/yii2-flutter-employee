@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn', 'header' => '#', 'contentOptions' => ['style' => 'width: 50px; text-align: center;']],
 
-          /*  [
+            /*  [
                 'attribute' => 'id',
                 'label' => 'ID',
                 'contentOptions' => ['style' => 'width: 80px; text-align: center;'],
@@ -57,8 +57,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'enableSorting' => false,
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return $model->status == 1 
-                        ? '<span class="badge bg-success">Đang hoạt động</span>' 
+                    return $model->status == 1
+                        ? '<span class="badge bg-success">Đang hoạt động</span>'
                         : '<span class="badge bg-secondary">Ngừng hoạt động</span>';
                 },
                 'filter' => [
@@ -85,11 +85,11 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'created_at',
                 'label' => 'Ngày tạo',
+                'filter' => false,
                 'enableSorting' => false,
                 'value' => function ($model) {
                     return $model->created_at ? date('d/m/Y', $model->created_at) : '(Chưa có)';
                 },
-                'contentOptions' => ['style' => 'width: 120px; text-align: center;'],
             ],
 
             // Thao tác
