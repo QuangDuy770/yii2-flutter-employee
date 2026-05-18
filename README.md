@@ -118,6 +118,35 @@ password: 123
 - Department status validation
 
 ---
+---
+
+## Screenshots
+
+### Home Page
+
+![Home Page](docs/images/home-page.png)
+
+### Login Page
+
+![Login Page](docs/images/login-page.png)
+
+### Employee Management
+
+![Employee Management](docs/images/employee-list.png)
+
+### Create Employee
+
+![Create Employee](docs/images/employee-create.png)
+
+### Department Management
+
+![Department Management](docs/images/department-list.png)
+
+### API JSON Response
+
+![API JSON Response](docs/images/api-json.png)
+
+---
 
 ## System Architecture
 
